@@ -1,0 +1,12 @@
+{
+  "name": "monprojet/airbnb-like",
+  "description": "Exemple de site type Airbnb",
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
