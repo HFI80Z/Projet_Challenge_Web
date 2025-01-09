@@ -9,7 +9,10 @@ class AnnonceModel
     public static function getAllAnnonces()
     {
         $db = Database::getConnection();
-        $sql = "SELECT * FROM annonces ORDER BY created_at DESC";
+        $sql = "SELECT a.*, u.nom, u.prenom 
+                FROM annonces a 
+                JOIN users u ON a.user_id = u.id 
+                ORDER BY a.created_at DESC";
         $stmt = $db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -79,5 +82,30 @@ class AnnonceModel
         $sql = "DELETE FROM annonces WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
+    }
+
+    public static function reserverAnnonce($annonceId, $userId)
+    {
+        $db = Database::getConnection();
+        $sql = "INSERT INTO reservations (annonce_id, user_id, created_at) 
+                VALUES (:annonce_id, :user_id, NOW())";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':annonce_id' => $annonceId,
+            ':user_id' => $userId,
+        ]);
+    }
+
+    public static function getReservationsByUser($userId)
+    {
+        $db = Database::getConnection();
+        $sql = "SELECT a.titre, a.description, a.prix, a.image, r.created_at 
+                FROM reservations r 
+                JOIN annonces a ON r.annonce_id = a.id 
+                WHERE r.user_id = :user_id
+                ORDER BY r.created_at DESC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

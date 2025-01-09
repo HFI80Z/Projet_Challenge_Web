@@ -15,50 +15,55 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // Routage minimaliste
 switch ($uri) {
     case '/':
-    case '/accueil':
-        $controller = new HomeController();
+    case '/accueil': // La page d'accueil affiche les annonces
+        $controller = new AnnonceController(); // Utilise AnnonceController pour afficher les annonces
         $controller->index();
         break;
 
-    case '/reservation':
-        $controller = new AnnonceController();
-        $controller->index();
+    case '/reservation': // Page des réservations
+        $controller = new OtherController();
+        $controller->reservation();
         break;
 
-    case '/categorie':
+    case '/categorie': // Page catégorie
         $controller = new OtherController();
         $controller->categorie();
         break;
 
-    case '/connexion':
+    case '/connexion': // Page de connexion
         $controller = new AuthController();
         $controller->connexion();
         break;
 
-    case '/inscription':
+    case '/inscription': // Page d'inscription
         $controller = new AuthController();
         $controller->inscription();
         break;
 
-    case '/contact':
+    case '/contact': // Page de contact
         $controller = new OtherController();
         $controller->contact();
         break;
 
     // Actions spécifiques pour les annonces
-    case '/ajouter-annonce':
+    case '/ajouter-annonce': // Ajouter une annonce
         $controller = new AnnonceController();
         $controller->ajouterAnnonce();
         break;
 
-    case '/modifier-annonce':
+    case '/modifier-annonce': // Modifier une annonce
         $controller = new AnnonceController();
         $controller->modifierAnnonce();
         break;
 
-    case '/supprimer-annonce':
+    case '/supprimer-annonce': // Supprimer une annonce
         $controller = new AnnonceController();
         $controller->supprimerAnnonce();
+        break;
+
+    case '/reserver-annonce': // Réserver une annonce
+        $controller = new AnnonceController();
+        $controller->reserverAnnonce();
         break;
 
     // Déconnexion
@@ -87,7 +92,7 @@ switch ($uri) {
         break;
 
     default:
-        // 404
+        // 404 - Page introuvable
         http_response_code(404);
         echo "404 - Page introuvable";
         break;

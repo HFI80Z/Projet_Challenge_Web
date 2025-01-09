@@ -7,9 +7,11 @@ class AnnonceController
 {
     public function index()
     {
-        // Page "Réservation" => lister les annonces
+        // Récupérer toutes les annonces depuis le modèle
         $annonces = AnnonceModel::getAllAnnonces();
-        require __DIR__ . '/../../templates/reservation.php';
+
+        // Charger la vue accueil.php avec les annonces
+        require __DIR__ . '/../../templates/accueil.php';
     }
 
     public function ajouterAnnonce()
@@ -39,11 +41,13 @@ class AnnonceController
             if (!empty($titre) && !empty($description)) {
                 AnnonceModel::createAnnonce($titre, $description, $prix, $user_id, $imageName);
             }
-            header('Location: /reservation');
+
+            // Rediriger vers la page d'accueil après l'ajout
+            header('Location: /accueil');
             exit;
         }
 
-        header('Location: /reservation');
+        header('Location: /accueil');
     }
 
     public function modifierAnnonce()
@@ -56,9 +60,9 @@ class AnnonceController
         $annonceId = $_GET['id'] ?? null;
 
         if ($annonceId) {
-            // Récupérer les données de l'annonce sélectionnée
             $annonce = AnnonceModel::getAnnonceById($annonceId);
 
+            // Vérifier que l'utilisateur connecté est le créateur de l'annonce
             if ($annonce && $annonce['user_id'] == $_SESSION['user_id']) {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $titre = $_POST['titre'] ?? '';
@@ -74,22 +78,20 @@ class AnnonceController
                         $imageName = uniqid('img_', true) . '.' . $extension;
                         move_uploaded_file($tmpFile, $uploadDir . $imageName);
                     } else {
-                        $imageName = $annonce['image'];
+                        $imageName = $_POST['current_image'] ?? $annonce['image'];
                     }
 
-                    // Mettre à jour l'annonce
                     AnnonceModel::updateAnnonce($annonceId, $titre, $description, $prix, $imageName);
-
-                    header('Location: /reservation');
+                    header('Location: /accueil');
                     exit;
                 }
 
-                require __DIR__ . '/../../templates/reservation.php';
+                require __DIR__ . '/../../templates/accueil.php';
                 return;
             }
         }
 
-        header('Location: /reservation');
+        header('Location: /accueil');
         exit;
     }
 
@@ -102,8 +104,33 @@ class AnnonceController
 
         $annonceId = $_GET['id'] ?? null;
         if ($annonceId) {
-            AnnonceModel::deleteAnnonce($annonceId);
+            $annonce = AnnonceModel::getAnnonceById($annonceId);
+
+            // Vérifier que l'utilisateur connecté est le créateur de l'annonce
+            if ($annonce && $annonce['user_id'] == $_SESSION['user_id']) {
+                AnnonceModel::deleteAnnonce($annonceId);
+            }
         }
-        header('Location: /reservation');
+
+        header('Location: /accueil');
+    }
+
+    public function reserverAnnonce()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /connexion');
+            exit;
+        }
+
+        $annonceId = $_GET['id'] ?? null;
+        $userId = $_SESSION['user_id'];
+
+        if ($annonceId) {
+            AnnonceModel::reserverAnnonce($annonceId, $userId);
+            header('Location: /reservation');
+            exit;
+        }
+
+        header('Location: /accueil');
     }
 }
