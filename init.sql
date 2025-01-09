@@ -1,4 +1,3 @@
--- Créer la base de données si elle n'existe pas
 DO $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'todolist') THEN
@@ -6,7 +5,6 @@ BEGIN
     END IF;
 END $$;
 
--- Continuez avec les commandes suivantes pour créer les tables
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
