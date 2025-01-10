@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon mini-Airbnb</title>
+    <title>Mon mini Chakou</title>
     <link rel="stylesheet" href="/css/style.css">
 
     <style>
@@ -117,7 +117,7 @@ nav ul li a:hover {
     justify-content: center;
     align-items: center;
     height: 250px;  
-    width: 1160px; 
+    width: 1160px;
 }
 
 .banner::after {
