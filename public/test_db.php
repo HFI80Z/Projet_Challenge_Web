@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php'; // Adapter le chemin selon votre structure
+require_once '../vendor/autoload.php';
 
 use App\Database\Database;
 

@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Chargement de l'autoload de Composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\AnnonceController;
 use App\Controllers\OtherController;
-use App\Controllers\UserController; // Ajout du UserController
+use App\Controllers\UserController; 
 
 // Activer l'affichage des erreurs
 ini_set('display_errors', 1);
@@ -20,74 +19,71 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // Routage minimaliste
 switch ($uri) {
     case '/':
-    case '/accueil': // La page d'accueil affiche les annonces
-        $controller = new AnnonceController(); // Utilise AnnonceController pour afficher les annonces
+    case '/accueil': 
+        $controller = new AnnonceController(); 
         $controller->index();
         break;
 
-    case '/reservation': // Page des réservations
+    case '/reservation': 
         $controller = new OtherController();
         $controller->reservation();
         break;
 
-    case '/creer-annonce': // Nouvelle page pour créer une annonce
+    case '/creer-annonce': 
         $controller = new OtherController();
         $controller->creerAnnonce();
         break;
 
-    case '/connexion': // Page de connexion
+    case '/connexion': 
         $controller = new AuthController();
         $controller->connexion();
         break;
 
-    case '/inscription': // Page d'inscription
+    case '/inscription': 
         $controller = new AuthController();
         $controller->inscription();
         break;
 
-    case '/contact': // Page de contact
+    case '/contact': 
         $controller = new OtherController();
         $controller->contact();
         break;
 
-    // Actions spécifiques pour les annonces
-    case '/ajouter-annonce': // Ajouter une annonce
+    case '/ajouter-annonce': 
         $controller = new AnnonceController();
         $controller->ajouterAnnonce();
         break;
 
-    case '/modifier-annonce': // Modifier une annonce
+    case '/modifier-annonce': 
         $controller = new AnnonceController();
         $controller->modifierAnnonce();
         break;
 
-    case '/supprimer-annonce': // Supprimer une annonce
+    case '/supprimer-annonce':
         $controller = new AnnonceController();
         $controller->supprimerAnnonce();
         break;
 
-    case '/reserver-annonce': // Réserver une annonce
+    case '/reserver-annonce': 
         $controller = new AnnonceController();
         $controller->reserverAnnonce();
         break;
 
-    case '/supprimer-reservation': // Supprimer une réservation
+    case '/supprimer-reservation': 
         $controller = new AnnonceController();
         $controller->supprimerReservation();
         break;
 
-    case '/profil': // Nouvelle route pour afficher le profil d'un utilisateur
+    case '/profil': 
         $controller = new UserController();
         $controller->afficherProfil();
         break;
 
-    // Déconnexion
     case '/deconnexion':
         $controller = new AuthController();
         $controller->deconnexion();
         break;
 
-    // Gestion du compte utilisateur
     case '/modifier-compte':
         if (isset($_SESSION['user_id'])) {
             $controller = new UserController();
@@ -109,6 +105,6 @@ switch ($uri) {
     default:
         // 404 - Page introuvable
         http_response_code(404);
-        echo "404 - Page introuvable";
+        echo "Lonny fait moi du saumon";
         break;
 }

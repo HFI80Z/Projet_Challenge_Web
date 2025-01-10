@@ -22,7 +22,7 @@ class UserController
 
             if (!empty($nom) && !empty($prenom) && !empty($region) && !empty($email)) {
                 UserModel::updateUser($userId, $nom, $prenom, $region, $email);
-                $_SESSION['user_prenom'] = $prenom; // Mettre à jour le prénom dans la session
+                $_SESSION['user_prenom'] = $prenom; 
                 header('Location: /');
                 exit;
             }
