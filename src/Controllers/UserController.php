@@ -31,4 +31,23 @@ class UserController
         $user = UserModel::getUserById($userId);
         require __DIR__ . '/../../templates/modifier-compte.php';
     }
+
+    // Nouvelle méthode pour afficher le profil d'un utilisateur
+    public function afficherProfil()
+    {
+        $userId = $_GET['id'] ?? null;
+
+        if ($userId) {
+            $user = UserModel::getUserProfileById($userId);
+
+            if ($user) {
+                require __DIR__ . '/../../templates/profil.php';
+                return;
+            }
+        }
+
+        // Si l'utilisateur n'existe pas, afficher une erreur ou rediriger
+        header('Location: /');
+        exit;
+    }
 }

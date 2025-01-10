@@ -10,6 +10,11 @@ use App\Controllers\AnnonceController;
 use App\Controllers\OtherController;
 use App\Controllers\UserController; // Ajout du UserController
 
+// Activer l'affichage des erreurs
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Routage minimaliste
@@ -25,9 +30,9 @@ switch ($uri) {
         $controller->reservation();
         break;
 
-    case '/categorie': // Page catégorie
+    case '/creer-annonce': // Nouvelle page pour créer une annonce
         $controller = new OtherController();
-        $controller->categorie();
+        $controller->creerAnnonce();
         break;
 
     case '/connexion': // Page de connexion
@@ -64,6 +69,16 @@ switch ($uri) {
     case '/reserver-annonce': // Réserver une annonce
         $controller = new AnnonceController();
         $controller->reserverAnnonce();
+        break;
+
+    case '/supprimer-reservation': // Supprimer une réservation
+        $controller = new AnnonceController();
+        $controller->supprimerReservation();
+        break;
+
+    case '/profil': // Nouvelle route pour afficher le profil d'un utilisateur
+        $controller = new UserController();
+        $controller->afficherProfil();
         break;
 
     // Déconnexion

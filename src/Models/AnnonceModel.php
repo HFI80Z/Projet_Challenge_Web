@@ -99,7 +99,7 @@ class AnnonceModel
     public static function getReservationsByUser($userId)
     {
         $db = Database::getConnection();
-        $sql = "SELECT a.titre, a.description, a.prix, a.image, r.created_at 
+        $sql = "SELECT r.id, a.titre, a.description, a.prix, a.image, r.created_at 
                 FROM reservations r 
                 JOIN annonces a ON r.annonce_id = a.id 
                 WHERE r.user_id = :user_id
@@ -107,5 +107,17 @@ class AnnonceModel
         $stmt = $db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Nouvelle méthode pour supprimer une réservation
+    public static function deleteReservation($reservationId, $userId)
+    {
+        $db = Database::getConnection();
+        $sql = "DELETE FROM reservations WHERE id = :reservation_id AND user_id = :user_id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':reservation_id' => $reservationId,
+            ':user_id' => $userId
+        ]);
     }
 }

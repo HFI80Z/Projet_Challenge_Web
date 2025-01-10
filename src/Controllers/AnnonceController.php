@@ -60,9 +60,10 @@ class AnnonceController
         $annonceId = $_GET['id'] ?? null;
 
         if ($annonceId) {
+            // Récupérer l'annonce par ID
             $annonce = AnnonceModel::getAnnonceById($annonceId);
 
-            // Vérifier que l'utilisateur connecté est le créateur de l'annonce
+            // Vérifier que l'annonce existe et que l'utilisateur connecté est le créateur
             if ($annonce && $annonce['user_id'] == $_SESSION['user_id']) {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $titre = $_POST['titre'] ?? '';
@@ -81,16 +82,23 @@ class AnnonceController
                         $imageName = $_POST['current_image'] ?? $annonce['image'];
                     }
 
+                    // Mise à jour de l'annonce
                     AnnonceModel::updateAnnonce($annonceId, $titre, $description, $prix, $imageName);
                     header('Location: /accueil');
                     exit;
                 }
 
-                require __DIR__ . '/../../templates/accueil.php';
+                // Charger la vue avec les données de l'annonce
+                require __DIR__ . '/../../templates/modifier-annonce.php';
                 return;
+            } else {
+                // Rediriger si l'annonce n'existe pas ou si l'utilisateur n'est pas le créateur
+                header('Location: /accueil');
+                exit;
             }
         }
 
+        // Rediriger en cas d'ID manquant
         header('Location: /accueil');
         exit;
     }
@@ -132,5 +140,23 @@ class AnnonceController
         }
 
         header('Location: /accueil');
+    }
+
+    public function supprimerReservation()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /connexion');
+            exit;
+        }
+
+        $reservationId = $_GET['id'] ?? null;
+        $userId = $_SESSION['user_id'];
+
+        if ($reservationId) {
+            AnnonceModel::deleteReservation($reservationId, $userId);
+        }
+
+        header('Location: /reservation');
+        exit;
     }
 }

@@ -51,7 +51,7 @@
     <nav>
         <a href="/">Accueil</a>
         <a href="/reservation">Réservation</a>
-        <a href="/categorie">Catégorie</a>
+        <a href="/creer-annonce">Mettre une annonce</a>
         <a href="/contact">Nous contacter</a>
 
         <div style="float: right;">

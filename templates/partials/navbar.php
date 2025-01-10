@@ -2,7 +2,7 @@
     <ul>
         <li><a href="/">Accueil</a></li>
         <li><a href="/reservation">Réservation</a></li>
-        <li><a href="/categorie">Catégorie</a></li>
+        <li><a href="/creer-annonce">Créer une annonce</a></li>
         <li><a href="/contact">Nous contacter</a></li>
         <?php if (isset($_SESSION['user_id'])): ?>
             <li><a href="/deconnexion">Déconnexion</a></li>

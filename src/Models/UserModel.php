@@ -57,4 +57,14 @@ class UserModel
             ':region' => $region
         ]);
     }
+
+    // Nouvelle méthode pour récupérer le profil d'un utilisateur par ID
+    public static function getUserProfileById($id)
+    {
+        $db = Database::getConnection();
+        $sql = "SELECT id, nom, prenom, region, email FROM users WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

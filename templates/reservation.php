@@ -26,6 +26,11 @@ $reservations = AnnonceModel::getReservationsByUser($_SESSION['user_id']);
                 <?php if (!empty($reservation['image'])): ?>
                     <img src="/uploads/<?= htmlspecialchars($reservation['image']) ?>" alt="Image de l'annonce" style="max-width: 200px;">
                 <?php endif; ?>
+                
+                <br>
+                <!-- Bouton supprimer la réservation -->
+                <a href="/supprimer-reservation?id=<?= htmlspecialchars($reservation['id']) ?>" 
+                   onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?')">Supprimer</a>
             </li>
             <hr>
         <?php endforeach; ?>

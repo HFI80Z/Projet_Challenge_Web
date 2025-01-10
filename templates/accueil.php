@@ -1,4 +1,4 @@
-<?php 
+<?php  
 ob_start(); 
 ?>
 
@@ -6,27 +6,6 @@ ob_start();
     <h1>Bienvenue sur notre site type Airbnb</h1>
     <p>Ceci est la page d’accueil</p>
 <?php endif; ?>
-
-<form action="<?= isset($annonce) ? "/modifier-annonce?id={$annonce['id']}" : "/ajouter-annonce" ?>" method="POST" enctype="multipart/form-data">
-    <h3><?= isset($annonce) ? "Modifier l'annonce" : "Ajouter une annonce" ?></h3>
-    <label>Titre :</label>
-    <input type="text" name="titre" value="<?= isset($annonce) ? htmlspecialchars($annonce['titre']) : '' ?>" required>
-    <br>
-    <label>Description :</label>
-    <textarea name="description" required><?= isset($annonce) ? htmlspecialchars($annonce['description']) : '' ?></textarea>
-    <br>
-    <label>Prix :</label>
-    <input type="number" name="prix" value="<?= isset($annonce) ? htmlspecialchars($annonce['prix']) : '' ?>" step="0.01">
-    <br>
-    <label>Image :</label>
-    <input type="file" name="image" accept="image/*">
-    <?php if (isset($annonce) && !empty($annonce['image'])): ?>
-        <br><img src="/uploads/<?= htmlspecialchars($annonce['image']) ?>" alt="Image de l'annonce" style="max-width: 200px;">
-        <input type="hidden" name="current_image" value="<?= htmlspecialchars($annonce['image']) ?>">
-    <?php endif; ?>
-    <br>
-    <button type="submit"><?= isset($annonce) ? "Confirmer" : "Ajouter" ?></button>
-</form>
 
 <hr>
 
@@ -39,7 +18,10 @@ ob_start();
                 <strong><?= htmlspecialchars($annonceItem['titre']) ?></strong><br>
                 <?= nl2br(htmlspecialchars($annonceItem['description'])) ?><br>
                 Prix : <?= htmlspecialchars($annonceItem['prix']) ?> €<br>
-                Créé par : <?= htmlspecialchars($annonceItem['prenom'] . ' ' . $annonceItem['nom']) ?><br>
+                Créé par : 
+                <a href="/profil?id=<?= htmlspecialchars($annonceItem['user_id']) ?>">
+                    <?= htmlspecialchars($annonceItem['prenom'] . ' ' . $annonceItem['nom']) ?>
+                </a><br>
 
                 <?php if (!empty($annonceItem['image'])): ?>
                     <img src="/uploads/<?= htmlspecialchars($annonceItem['image']) ?>" alt="Annonce" style="max-width: 200px;">
