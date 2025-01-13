@@ -1,6 +1,7 @@
 Chakou
 Un site d'annonce .
-
+Personne l'ayant réaliser : Lory Esteban, John William, Lonny Michely, Shaman Viellet
+Présentation Canva : https://www.canva.com/design/DAGbyT4_wZU/JkaOcdP_FFSoeAAh2_EuLQ
 🚀 Fonctionnalités
 Affichage des tâches
 Ajout de nouvelles tâches
@@ -57,15 +58,6 @@ environment:
 environment:
   PGADMIN_DEFAULT_EMAIL: admin@admin.com
   PGADMIN_DEFAULT_PASSWORD: admin
-📝 Base de données
-La base de données PostgreSQL est initialisée avec la structure suivante :
-
-CREATE TABLE tasks (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    completed BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 🔨 Développement
 Pour le développement, les volumes Docker sont configurés pour refléter les changements en temps réel :
 
