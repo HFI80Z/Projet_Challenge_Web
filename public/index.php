@@ -105,6 +105,6 @@ switch ($uri) {
     default:
         // 404 - Page introuvable
         http_response_code(404);
-        echo "Lonny fait moi du saumon";
+        echo "Rayane nique tes morts stp merci";
         break;
 }
