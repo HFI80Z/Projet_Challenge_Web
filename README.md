@@ -1,5 +1,5 @@
-Application Todo List
-Une application simple de gestion de tâches construite avec PHP et PostgreSQL.
+Chakou
+Un site d'annonce .
 
 🚀 Fonctionnalités
 Affichage des tâches
