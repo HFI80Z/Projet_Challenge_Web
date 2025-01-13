@@ -1,7 +1,9 @@
 Chakou
 Un site d'annonce .
 Personne l'ayant réaliser : Lory Esteban, John William, Lonny Michely, Shaman Viellet
-Présentation Canva : https://www.canva.com/design/DAGbyT4_wZU/JkaOcdP_FFSoeAAh2_EuLQ
+
+Présentation Canva : https://www.canva.com/design/DAGbyT4_wZU/JI6UXzcB-fnkn6Xbu9_LsQ/view?utm_content=DAGbyT4_wZU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb0f2d7cd77
+
 🚀 Fonctionnalités
 Affichage des tâches
 Ajout de nouvelles tâches
